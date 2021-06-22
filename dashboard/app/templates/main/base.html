@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	{% load static %}
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Senate Stock Transactions">
+	<meta name="author" content="Jaxon McClelland">
+	<!--<meta name="keywords" content="5g, weather, hackathon, aws, django, app, pi, awbtech">-->
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="{% static 'main/img/icons/icon-48x48.png" />
+
+	<link rel="canonical" href="https://example.com/" />
+
+	<title>5G Weather</title>
+
+	<link href="{% static 'main/css/app.css' %}" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<!-- BEGIN SETTINGS -->
+	<!-- <script src="{% static 'main/js/settings.js' %}"></script> -->
+	<!-- END SETTINGS -->
+</head>
+<!--
+  HOW TO USE: 
+  data-theme: default (default), dark, light
+  data-layout: fluid (default), boxed
+  data-sidebar: left (default), right
+-->
+
+<body data-theme="default" data-layout="fluid" data-sidebar="left">
+	<div class="wrapper">
+		<nav id="sidebar" class="sidebar">
+			<div class="sidebar-content js-simplebar">
+				<a class="sidebar-brand" href="/">
+					<span class="align-middle">Senate Asset Transactions</span>
+				</a>
+
+				<ul class="sidebar-nav">
+					{% if page == "index" %}
+					<li class="sidebar-item active">
+					{% else %}
+					<li class="sidebar-item">
+					{% endif %}
+						<a class="sidebar-link" href="/">
+							<i class="align-middle" data-feather="activity"></i> <span class="align-middle">Dashboard</span>
+						</a>
+					</li>
+
+					<!-- {% if page == "my-requests" %}
+					<li class="sidebar-item active">
+					{% else %}
+					<li class="sidebar-item">
+					{% endif %}
+						<a class="sidebar-link" href="/my-requests">
+							<i class="align-middle" data-feather="tag"></i> <span class="align-middle">Weather Devices</span>
+						</a>
+					</li> -->
+				</ul>
+				<div class="sidebar-cta">
+					<div class="sidebar-cta-content">
+						<strong class="d-inline-block mb-2">Status: v1.0.0</strong>
+						<div class="mb-3 text-sm">
+							View Current Version and Upcoming Changes
+						</div>
+
+						<div class="d-grid">
+							<a href="/status-page" class="btn btn-outline-primary" target="_blank">View</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div class="main">
+			<nav class="navbar navbar-expand navbar-light navbar-bg">
+				<a class="sidebar-toggle d-flex">
+					<i class="hamburger align-self-center"></i>
+				</a>
+
+				<form class="d-none d-sm-inline-block">
+					<div class="input-group input-group-navbar">
+						<input type="text" class="form-control" placeholder="Search" aria-label="Search">
+						<button class="btn" type="button">
+							<i class="align-middle" data-feather="search"></i>
+						</button>
+					</div>
+				</form>
+
+				<div class="navbar-collapse collapse">
+					<ul class="navbar-nav navbar-align">
+						<li class="nav-item dropdown">
+							<a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+								<i class="align-middle" data-feather="settings"></i>
+							</a>
+
+							<a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+								<span class="text-dark">Test User</span>
+							</a>
+							<div class="dropdown-menu dropdown-menu-end">
+								<a class="dropdown-item" href="/"><i class="align-middle me-1" data-feather="user"></i> Account</a>
+								<!-- <div class="dropdown-divider"></div> -->
+								<!-- <a class="dropdown-item" href="/logout"><i class="align-middle me-1" data-feather="lock"></i> Log out </a> -->
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-{{message.tags}} alert-dismissible" role="alert">
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					<div class="alert-message">
+						<strong>{{message|safe}}</strong>
+					</div>
+				</div>
+				{% endfor %}
+			{% endif %}
+
+			{% block content %}
+            {% endblock %}
+
+			<footer class="footer">
+				<div class="container-fluid">
+					<div class="row text-muted">
+						<div class="col-6 text-start">
+							<p class="mb-0">
+								<a href="/" class="text-muted"><strong>Senate Transaction Collection System</strong></a> &copy;
+							</p>
+						</div>
+						<div class="col-6 text-end">
+							<ul class="list-inline">
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Support</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Help Center</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Privacy</a>
+								</li>
+								<li class="list-inline-item">
+									<a class="text-muted" href="#">Terms</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+
+	<script src="{% static 'main/js/app.js' %}"></script>
+
+
+	<!--<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			document.getElementById("datetimepicker-dashboard").flatpickr({
+				inline: true,
+				prevArrow: "<span class=\"fas fa-chevron-left\" title=\"Previous month\"></span>",
+				nextArrow: "<span class=\"fas fa-chevron-right\" title=\"Next month\"></span>",
+			});
+		});
+    </script>-->
+	
+    <script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.querySelectorAll('.needs-validation')
+			// Loop over them and prevent submission
+			Array.prototype.slice.call(forms)
+				.forEach(function(form) {
+					form.addEventListener('submit', function(event) {
+						if (!form.checkValidity()) {
+							event.preventDefault()
+							event.stopPropagation()
+                        }
+						form.classList.add('was-validated')
+					}, false)
+				})
+		});
+    </script>
+	<!-- End Form Validation -->
+	
+	<!-- Datatables JS -->
+	<script src="{% static 'main/js/datatables.js' %}"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Datatables Responsive
+			$("#table").DataTable({
+				responsive: true
+			});
+			$("#latest_changes").DataTable({
+				responsive: true,
+				paging:   false,
+				searching: false,
+				columnDefs: [
+					{
+						"targets": [ 6 ],
+						"visible": false,
+					},
+				],
+				order: [[ 6, "desc" ]]
+			});
+		});
+	</script>
+	<!-- End Datatables JS -->
+
+</body>
+
+</html>

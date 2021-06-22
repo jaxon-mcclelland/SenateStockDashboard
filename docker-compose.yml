@@ -1,0 +1,29 @@
+version: '3.2'
+services:
+
+  db:
+    container_name: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    env_file: 
+      - ./env/mysql.env
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./dashboard/nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./dashboard:/app
+    links:
+      - "dashboard"
+  dashboard:
+    container_name: dashboard
+    image: dashboard
+    ports:
+      - 8000:8000
+    links:
+      - "db"
