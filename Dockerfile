@@ -1,18 +1,15 @@
-FROM debian:10
+FROM python:3.9.5-slim-buster
 
-MAINTAINER Jaxon McClelland
+ENV dbUser root
+ENV dbPwd root
+ENV dbHost db
+ENV dbName transactions
 
-RUN apt-get update -y && \
-    apt-get install -y python3-pip python3-dev
-   
-COPY ./requirements.txt /requirements.txt
+RUN apt-get update 
+RUN apt-get install -y -qq default-libmysqlclient-dev g++ 
+COPY . /app
+WORKDIR /app
+RUN pip install -r requirements.txt
 
-WORKDIR /
+CMD python3 getSenatorData.py
 
-RUN pip3 install -r requirements.txt
-
-COPY . /
-
-ENTRYPOINT ["python3"]
-
-CMD ["app/app.py"]
