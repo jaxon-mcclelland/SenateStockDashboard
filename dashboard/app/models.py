@@ -9,8 +9,7 @@ from django.db import models
 
 
 class transactions(models.Model):
-    transaction_date = models.DateTimeField()
-    position = models.TextField()
+    transaction_date = models.DateField()
     senatorName = models.TextField()
     party = models.TextField()
     state = models.TextField()

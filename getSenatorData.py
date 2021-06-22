@@ -22,15 +22,9 @@ rootUrl = 'https://efdsearch.senate.gov'
 metadataUrl = rootUrl + '/search/'
 landingPageUrl = rootUrl + '/search/home/'
 endpointAPI = rootUrl + '/search/report/data/'
-dataframeColumns = ['transaction_date', 'position', 'name', 'party', 'state', 'symbol', 'transaction_type', 'order_amount']
+dataframeColumns = ['transaction_date', 'senatorName', 'party', 'state', 'symbol', 'transaction_type']
 
-'''
-dbUsername = os.environ['dbUser']
-dbPassword = os.environ['dbPwd']
-dbHost = os.environ['dbHost']
-dbName = os.environ['dbName']
-'''
-
+# example creds
 dbUsername = 'root'
 dbPassword = 'password'
 dbHost = '127.0.0.1'
@@ -130,7 +124,9 @@ def getReportData(client: requests.Session, reportLink, generaldata) -> DataFram
             continue
         elif ticker == '--':
             continue
-        report.append([transactionDate, 'Senator', senatorName, party, state, ticker, transactionType]) 
+        elif (party == '0') and (state == '0'):
+            continue
+        report.append([transactionDate, senatorName, party, state, ticker, transactionType]) 
         return pd.DataFrame(report).rename(columns=dict(enumerate(dataframeColumns)))
 
 
@@ -162,5 +158,5 @@ def getReports() -> DataFrame:
 
 if __name__ == '__main__':
     report = getReports()
-    report['transaction_date'] = pd.to_datetime(report['transaction_date'])
+    report['transaction_date'] = pd.to_datetime(report['transaction_date']).dt.strftime('%m/%d/%Y')
     report.to_sql('transactions', dbEngine, index=True, if_exists='replace')

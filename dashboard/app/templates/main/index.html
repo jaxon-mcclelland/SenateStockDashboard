@@ -158,23 +158,22 @@
 									<thead>
 										<tr>
 											<th>Transaction Date</th>
-											<th>Position</th>
+											<th>Transaction Type</th>
+											<th>Senator Name</th>
 											<th>Stock Ticker</th>
 											<th>Party</th>
 											<th>State</th>
-											<th>Transaction Type</th>
 										</tr>
 									</thead>
 									<tbody>
 										{% for data in transactions %}
 										<tr>
-											<td>{{data.time}}</td>
-											<td>{{data.position}}</td>
-											<td>{{data.name}}</td>
+											<td>{{data.transaction_date}}</td>
+											<td>{{data.transaction_type}}</td>
+											<td>{{data.senatorName}}</td>
 											<td>{{data.symbol}}</td>
 											<td>{{data.party}}</td>
 											<td>{{data.state}}</td>
-											<td>{{data.type}}</td>
 
 										</tr>
 										{% endfor %}
